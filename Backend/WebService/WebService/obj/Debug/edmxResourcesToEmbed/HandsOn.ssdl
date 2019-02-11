@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="handsonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="acoes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="datacotacao" Type="date" Nullable="false" />
+    <Property Name="valorcotacao" Type="decimal" Precision="16" Scale="4" Nullable="false" />
+  </EntityType>
+  <EntityType Name="clientes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="cpfcnpj" Type="varchar" MaxLength="30" />
+    <Property Name="nascimento" Type="date" Nullable="false" />
+    <Property Name="tipopessoa" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ordens">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idcliente" Type="int" Nullable="false" />
+    <Property Name="idacao" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="dataordem" Type="date" />
+    <Property Name="quantidadeacao" Type="int" Nullable="false" />
+    <Property Name="datacompra" Type="date" />
+    <Property Name="valorordem" Type="decimal" Precision="16" Scale="4" Nullable="false" />
+    <Property Name="taxacorretagem" Type="decimal" Precision="16" Scale="4" Nullable="false" />
+    <Property Name="impostorenda" Type="decimal" Precision="16" Scale="4" Nullable="false" />
+    <Property Name="tipoordem" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_ordens_idacao">
+    <End Role="acoes" Type="Self.acoes" Multiplicity="1" />
+    <End Role="ordens" Type="Self.ordens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="acoes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ordens">
+        <PropertyRef Name="idacao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ordens_idcliente">
+    <End Role="clientes" Type="Self.clientes" Multiplicity="1" />
+    <End Role="ordens" Type="Self.ordens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ordens">
+        <PropertyRef Name="idcliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="handsonModelStoreContainer">
+    <EntitySet Name="acoes" EntityType="Self.acoes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ordens" EntityType="Self.ordens" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_ordens_idacao" Association="Self.fk_ordens_idacao">
+      <End Role="acoes" EntitySet="acoes" />
+      <End Role="ordens" EntitySet="ordens" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ordens_idcliente" Association="Self.fk_ordens_idcliente">
+      <End Role="clientes" EntitySet="clientes" />
+      <End Role="ordens" EntitySet="ordens" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

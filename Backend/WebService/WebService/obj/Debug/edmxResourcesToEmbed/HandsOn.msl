@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="handsonModelStoreContainer" CdmEntityContainer="handsonEntities">
+    <EntitySetMapping Name="acoes">
+      <EntityTypeMapping TypeName="handsonModel.acoes">
+        <MappingFragment StoreEntitySet="acoes">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="datacotacao" ColumnName="datacotacao" />
+          <ScalarProperty Name="valorcotacao" ColumnName="valorcotacao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clientes">
+      <EntityTypeMapping TypeName="handsonModel.clientes">
+        <MappingFragment StoreEntitySet="clientes">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="cpfcnpj" ColumnName="cpfcnpj" />
+          <ScalarProperty Name="nascimento" ColumnName="nascimento" />
+          <ScalarProperty Name="tipopessoa" ColumnName="tipopessoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ordens">
+      <EntityTypeMapping TypeName="handsonModel.ordens">
+        <MappingFragment StoreEntitySet="ordens">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="idcliente" ColumnName="idcliente" />
+          <ScalarProperty Name="idacao" ColumnName="idacao" />
+          <ScalarProperty Name="dataordem" ColumnName="dataordem" />
+          <ScalarProperty Name="quantidadeacao" ColumnName="quantidadeacao" />
+          <ScalarProperty Name="datacompra" ColumnName="datacompra" />
+          <ScalarProperty Name="valorordem" ColumnName="valorordem" />
+          <ScalarProperty Name="taxacorretagem" ColumnName="taxacorretagem" />
+          <ScalarProperty Name="impostorenda" ColumnName="impostorenda" />
+          <ScalarProperty Name="tipoordem" ColumnName="tipoordem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

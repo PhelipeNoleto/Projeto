@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="handsonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="acoes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="datacotacao" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="valorcotacao" Type="Decimal" Precision="16" Scale="4" Nullable="false" />
+    <NavigationProperty Name="ordens" Relationship="Self.fk_ordens_idacao" FromRole="acoes" ToRole="ordens" />
+  </EntityType>
+  <EntityType Name="clientes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cpfcnpj" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="nascimento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="tipopessoa" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ordens" Relationship="Self.fk_ordens_idcliente" FromRole="clientes" ToRole="ordens" />
+  </EntityType>
+  <EntityType Name="ordens">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idcliente" Type="Int32" Nullable="false" />
+    <Property Name="idacao" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dataordem" Type="DateTime" Precision="0" />
+    <Property Name="quantidadeacao" Type="Int32" Nullable="false" />
+    <Property Name="datacompra" Type="DateTime" Precision="0" />
+    <Property Name="valorordem" Type="Decimal" Precision="16" Scale="4" Nullable="false" />
+    <Property Name="taxacorretagem" Type="Decimal" Precision="16" Scale="4" Nullable="false" />
+    <Property Name="impostorenda" Type="Decimal" Precision="16" Scale="4" Nullable="false" />
+    <Property Name="tipoordem" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="acoes" Relationship="Self.fk_ordens_idacao" FromRole="ordens" ToRole="acoes" />
+    <NavigationProperty Name="clientes" Relationship="Self.fk_ordens_idcliente" FromRole="ordens" ToRole="clientes" />
+  </EntityType>
+  <Association Name="fk_ordens_idacao">
+    <End Role="acoes" Type="Self.acoes" Multiplicity="1" />
+    <End Role="ordens" Type="Self.ordens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="acoes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ordens">
+        <PropertyRef Name="idacao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ordens_idcliente">
+    <End Role="clientes" Type="Self.clientes" Multiplicity="1" />
+    <End Role="ordens" Type="Self.ordens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ordens">
+        <PropertyRef Name="idcliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="handsonEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="acoes" EntityType="Self.acoes" />
+    <EntitySet Name="clientes" EntityType="Self.clientes" />
+    <EntitySet Name="ordens" EntityType="Self.ordens" />
+    <AssociationSet Name="fk_ordens_idacao" Association="Self.fk_ordens_idacao">
+      <End Role="acoes" EntitySet="acoes" />
+      <End Role="ordens" EntitySet="ordens" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ordens_idcliente" Association="Self.fk_ordens_idcliente">
+      <End Role="clientes" EntitySet="clientes" />
+      <End Role="ordens" EntitySet="ordens" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

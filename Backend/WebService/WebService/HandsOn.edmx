@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="handsonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="acoes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="datacotacao" Type="date" Nullable="false" />
+          <Property Name="valorcotacao" Type="decimal" Precision="16" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="cpfcnpj" Type="varchar" MaxLength="30" />
+          <Property Name="nascimento" Type="date" Nullable="false" />
+          <Property Name="tipopessoa" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ordens">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idcliente" Type="int" Nullable="false" />
+          <Property Name="idacao" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="dataordem" Type="date" />
+          <Property Name="quantidadeacao" Type="int" Nullable="false" />
+          <Property Name="datacompra" Type="date" />
+          <Property Name="valorordem" Type="decimal" Precision="16" Scale="4" Nullable="false" />
+          <Property Name="taxacorretagem" Type="decimal" Precision="16" Scale="4" Nullable="false" />
+          <Property Name="impostorenda" Type="decimal" Precision="16" Scale="4" Nullable="false" />
+          <Property Name="tipoordem" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_ordens_idacao">
+          <End Role="acoes" Type="Self.acoes" Multiplicity="1" />
+          <End Role="ordens" Type="Self.ordens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="acoes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ordens">
+              <PropertyRef Name="idacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ordens_idcliente">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="1" />
+          <End Role="ordens" Type="Self.ordens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ordens">
+              <PropertyRef Name="idcliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="handsonModelStoreContainer">
+          <EntitySet Name="acoes" EntityType="Self.acoes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ordens" EntityType="Self.ordens" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_ordens_idacao" Association="Self.fk_ordens_idacao">
+            <End Role="acoes" EntitySet="acoes" />
+            <End Role="ordens" EntitySet="ordens" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ordens_idcliente" Association="Self.fk_ordens_idcliente">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="ordens" EntitySet="ordens" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="handsonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="acoes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="datacotacao" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="valorcotacao" Type="Decimal" Precision="16" Scale="4" Nullable="false" />
+          <NavigationProperty Name="ordens" Relationship="Self.fk_ordens_idacao" FromRole="acoes" ToRole="ordens" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpfcnpj" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nascimento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="tipopessoa" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ordens" Relationship="Self.fk_ordens_idcliente" FromRole="clientes" ToRole="ordens" />
+        </EntityType>
+        <EntityType Name="ordens">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idcliente" Type="Int32" Nullable="false" />
+          <Property Name="idacao" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dataordem" Type="DateTime" Precision="0" />
+          <Property Name="quantidadeacao" Type="Int32" Nullable="false" />
+          <Property Name="datacompra" Type="DateTime" Precision="0" />
+          <Property Name="valorordem" Type="Decimal" Precision="16" Scale="4" Nullable="false" />
+          <Property Name="taxacorretagem" Type="Decimal" Precision="16" Scale="4" Nullable="false" />
+          <Property Name="impostorenda" Type="Decimal" Precision="16" Scale="4" Nullable="false" />
+          <Property Name="tipoordem" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="acoes" Relationship="Self.fk_ordens_idacao" FromRole="ordens" ToRole="acoes" />
+          <NavigationProperty Name="clientes" Relationship="Self.fk_ordens_idcliente" FromRole="ordens" ToRole="clientes" />
+        </EntityType>
+        <Association Name="fk_ordens_idacao">
+          <End Role="acoes" Type="Self.acoes" Multiplicity="1" />
+          <End Role="ordens" Type="Self.ordens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="acoes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ordens">
+              <PropertyRef Name="idacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ordens_idcliente">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="1" />
+          <End Role="ordens" Type="Self.ordens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ordens">
+              <PropertyRef Name="idcliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="handsonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="acoes" EntityType="Self.acoes" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" />
+          <EntitySet Name="ordens" EntityType="Self.ordens" />
+          <AssociationSet Name="fk_ordens_idacao" Association="Self.fk_ordens_idacao">
+            <End Role="acoes" EntitySet="acoes" />
+            <End Role="ordens" EntitySet="ordens" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ordens_idcliente" Association="Self.fk_ordens_idcliente">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="ordens" EntitySet="ordens" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="handsonModelStoreContainer" CdmEntityContainer="handsonEntities">
+          <EntitySetMapping Name="acoes">
+            <EntityTypeMapping TypeName="handsonModel.acoes">
+              <MappingFragment StoreEntitySet="acoes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="datacotacao" ColumnName="datacotacao" />
+                <ScalarProperty Name="valorcotacao" ColumnName="valorcotacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="handsonModel.clientes">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="cpfcnpj" ColumnName="cpfcnpj" />
+                <ScalarProperty Name="nascimento" ColumnName="nascimento" />
+                <ScalarProperty Name="tipopessoa" ColumnName="tipopessoa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ordens">
+            <EntityTypeMapping TypeName="handsonModel.ordens">
+              <MappingFragment StoreEntitySet="ordens">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idcliente" ColumnName="idcliente" />
+                <ScalarProperty Name="idacao" ColumnName="idacao" />
+                <ScalarProperty Name="dataordem" ColumnName="dataordem" />
+                <ScalarProperty Name="quantidadeacao" ColumnName="quantidadeacao" />
+                <ScalarProperty Name="datacompra" ColumnName="datacompra" />
+                <ScalarProperty Name="valorordem" ColumnName="valorordem" />
+                <ScalarProperty Name="taxacorretagem" ColumnName="taxacorretagem" />
+                <ScalarProperty Name="impostorenda" ColumnName="impostorenda" />
+                <ScalarProperty Name="tipoordem" ColumnName="tipoordem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
