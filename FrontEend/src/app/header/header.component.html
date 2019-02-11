@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+    <button mat-button [matMenuTriggerFor]="clientesMenu" class="btn btn-secondary dropdown-toggle">Clientes</button>
+
+    <mat-menu #clientesMenu="matMenu" >
+      <button mat-menu-item (click)="cadastrarCliente()">Cadastrar</button>
+      <button mat-menu-item (click)="alterarCliente()" >Alterar</button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="acoesMenu" class="btn btn-secondary dropdown-toggle">Ações</button>
+
+    <mat-menu #acoesMenu="matMenu" >
+      <button mat-menu-item (click)="cadastrarAcao()" >Cadastrar</button>
+      <button mat-menu-item (click)="alterarAcao()">Alterar</button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="ordensMenu" class="btn btn-secondary dropdown-toggle">Ordens</button>
+
+    <mat-menu #ordensMenu="matMenu" >
+      <button mat-menu-item (click)="criarOrdem()">Criar Ordem</button>
+      <button mat-menu-item (click)="abrirOrdens()">Execução de Ordens</button>
+    </mat-menu>
+
+  </div>
+</nav>

@@ -1,0 +1,24 @@
+.topicos {
+    background:#237dd7;
+    color: rgba(255, 255, 255, 0.6) !important;
+    padding: 90px;
+}
+
+.topicos h6 {
+    color: #fff;
+}
+
+.topicos li {
+    list-style: none;
+    line-height: 3;
+}
+
+.rodape {
+    background:#237dd7;
+    height: 5vh;
+}
+
+.text-center{
+    color:#f2ecec;
+    margin:0;
+}

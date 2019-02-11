@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row box-cadastro">
+    <div class="col-12">
+      <h3 class="text-center">Cadastro</h3>
+      <div class="form-group">
+        <mat-select [(ngModel)]="ordem.idcliente" placeholder="Selecione o Cliente">
+          <mat-option [value]="cliente.id" *ngFor="let cliente of listaClientes">
+            NOME: {{cliente.nome}} | CPFCNPJ: {{cliente.cpfcnpj}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <br>
+      <div class="form-group">
+        <mat-select [(ngModel)]="ordem.idacao" placeholder="Selecione a Ação">
+          <mat-option [value]="acao.id" *ngFor="let acao of listaAcoes">
+            {{acao.id}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <br>
+      <div class="form-group">
+        <mat-select [(ngModel)]="ordem.tipoordem" placeholder="Tipo de Ordem">
+          <mat-option value="C">Compra</mat-option>
+          <mat-option value="V">Venda</mat-option>
+        </mat-select>
+      </div>
+      <br>
+      <div class="form-group">
+        <input type="text" class="form-control cadastro" placeholder="Quantidade de Ações"
+          (change)="calcularDescontos()" [(ngModel)]="ordem.quantidadeacao">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control cadastro" placeholder="Valor da ordem" [(ngModel)]="ordem.valorordem">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control cadastro" placeholder="Taxa de corretagem"
+          [(ngModel)]="ordem.taxacorretagem">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control cadastro" placeholder="Imposto de renda"
+          [(ngModel)]="ordem.impostorenda">
+      </div>
+      <button class="btn btn-cadastro btn-lg" (click)="cadastrar()">Cadastrar</button>
+    </div>
+  </div>
+</div>

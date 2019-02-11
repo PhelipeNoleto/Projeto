@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row box-cadastro">
+    <div class="col-12">
+      <h3 class="text-center">Cadastro</h3>
+      <div class="form-group">
+        <input type="text" class="form-control cadastro" placeholder="Nome" [(ngModel)]="cliente.nome">
+      </div>
+      <div class="form-group">
+        <input type="number" class="form-control cadastro" placeholder="CPF/CNPJ" [(ngModel)]="cliente.cpfcnpj">
+      </div>
+      <div class="form-group">
+        <input type="date" class="form-control cadastro" placeholder="Data de nascimento" [(ngModel)]="cliente.nascimento">
+      </div>
+      <div class="form-group">
+        <mat-select placeholder="Selection o tipo de cadastro" [(ngModel)]="cliente.tipopessoa">
+          <mat-option value="F">Pessoa Fisica</mat-option>
+          <mat-option value="J">Pessoa Juridica</mat-option>
+        </mat-select>
+      </div>
+      <button class="btn btn-cadastro btn-lg"(click)="cadastrar()">Cadastrar</button>
+    </div>
+  </div>
+</div>

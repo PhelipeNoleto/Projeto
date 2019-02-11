@@ -1,0 +1,9 @@
+.mat-card-content > :last-child:not(.mat-card-footer), .mat-card > :last-child:not(.mat-card-footer) {
+    margin-left: 5px;
+}
+
+.mat-card {
+    margin-bottom: 5px;
+}
+
+

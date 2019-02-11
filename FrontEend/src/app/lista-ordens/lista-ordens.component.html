@@ -1,0 +1,35 @@
+<div class="container">
+  <mat-card>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Cliente</th>
+          <th scope="col">Ação</th>
+          <th scope="col">Tipo ordem</th>
+          <th scope="col">quantidade</th>
+          <th scope="col">Data Ordem</th>
+          <th scope="col">Data Compra</th>
+          <th scope="col">Corretagem</th>
+          <th scope="col">IR</th>
+          <th scope="col">valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ordem of listaOrdens">
+          <td>{{ordem.id}}</td>
+          <td>{{ordem.clientes.nome}}</td>
+          <td>{{ordem.acoes.id}}</td>
+          <td *ngIf="ordem.tipoordem == 'V'">Venda</td>
+          <td *ngIf="ordem.tipoordem == 'C'">Compra</td>
+          <td>{{ordem.quantidadeacao}}</td>
+          <td>{{ordem.dataordem | date:'dd/MM/yyyy'}}</td>
+          <td>{{ordem.datacompra}}</td>
+          <td>{{ordem.taxacorretagem }}</td>
+          <td>{{ordem.impostorenda}}</td>
+          <td>{{ordem.valorordem}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card>
+</div>

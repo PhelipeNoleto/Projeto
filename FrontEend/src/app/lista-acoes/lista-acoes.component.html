@@ -1,0 +1,13 @@
+<div class="container">
+    <mat-card *ngFor="let acao of listaAcoes">
+      <input type="text" class="form-control cadastro" [(ngModel)]="acao.id" disabled>
+      <br>
+      <input type="date" class="form-control cadastro" [ngModel]="acao.datacotacao | date:'yyyy-MM-dd'" 
+      (ngModelChange)="acao.datacotacao = $event">
+      <br>
+      <input type="text" class="form-control cadastro" [(ngModel)]="acao.valorcotacao">
+      <br>
+      <button class="btn btn-cadastro btn-lg" (click)="salvar(acao)">Salvar</button>
+      <button class="btn btn-cadastro btn-lg" (click)="excluir(acao)">Excluir</button>
+    </mat-card>
+  </div>
